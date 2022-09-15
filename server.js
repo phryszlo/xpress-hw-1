@@ -15,11 +15,10 @@ app.get('/:name', (req, res) => {
 
 app.get('/tip/:total/:tip', (req, res) => {
   res.send(`
-    <div style='display: flex; align-items: center; justify-content: center; width: 100vw; height: 100vh;color: white; background-color: black;'>
-    <h2 style='text-align: center;'>
+    
+    <h2>
     $${(req.params.tip / req.params.total * 100).toFixed(2)}
     </h2>
-    </div>
   `);
 })
 
