@@ -30,6 +30,63 @@ app.get('/magic/:q', (req, res) => {
   `);
 })
 
+// FIBONACCI
+
+// F(n) = F(n-1) + F(n-2)
+
+const isThisAFibbo = (max) => {
+  const fibbos = [0, 1];
+  let n = 1;
+  let nMinus2 = 0;
+  let nMinus1 = 0;
+
+  while (n <= max) {
+
+    nMinus2 = nMinus1;
+    nMinus1 = n;
+    n = nMinus1 + nMinus2;
+    fibbos.push(n);
+  }
+
+  if (fibbos.indexOf(parseInt(max)) >= 0) { return true; }
+  else { return false; }
+
+  console.log(fibbos.join(','));
+}
+
+const theFibbosUpToYourNum = (max) => {
+  const fibbos = [0, 1];
+  let n = 1;
+  let nMinus2 = 0;
+  let nMinus1 = 0;
+
+  while (n <= max) {
+
+    nMinus2 = nMinus1;
+    nMinus1 = n;
+    n = nMinus1 + nMinus2;
+    fibbos.push(n);
+  }
+
+  return fibbos.join(',');
+}
+
+app.get('/fibonacci/:num', (req, res) => {
+  if (isThisAFibbo(req.params.num)) {
+    res.send(`
+    <h3 style='text-align: center; margin: auto;'>Very good. ${req.params.num} is a Fibbo.</h3>
+    `);
+  }
+  else {
+    res.send(`
+    <h3 style='text-align: center; margin: auto;'>I can tell ${req.params.num} is not a Fibbo.</h3>
+    <h4 style='text-align: center; margin: auto;'>The fibbos up to (and right past) your number are: ${theFibbosUpToYourNum(req.params.num)}</h4>
+    
+    `);
+
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 })
